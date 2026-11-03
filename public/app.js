@@ -220,7 +220,11 @@ async function home(el) {
     <h1 class="display">Dai una mano.<br>Anzi, due.</h1>
     <p class="lead">Insegniamo all'AI a capire la LIS, con i nostri esempi. Bastano pochi secondi di Lingua dei Segni Italiana davanti alla fotocamera per contribuire al dataset.</p>
     <div class="row"><a class="btn btn-primary btn-lg" href="${start}">Inizia a contribuire</a><button class="link" type="button" data-scroll="#come">Scopri come</button></div>
-    <div class="device-wrap reveal">${deviceMock()}</div>
+    <figure class="hero-media reveal">
+      <img src="/img/hero-1600.jpg" srcset="/img/hero-1000.jpg 1000w, /img/hero-1600.jpg 1600w, /img/hero-2400.jpg 2400w" sizes="(max-width: 1148px) 100vw, 1100px"
+        width="1600" height="893" fetchpriority="high" alt="Una ragazza segna in LIS davanti a un portatile, in una stanza illuminata dal sole. Dalla fotocamera partono sottili fili di luce che si posano sulle articolazioni delle sue dita; sullo schermo, il suo video e la parola «Grazie».">
+      <figcaption class="tiny">Immagine illustrativa generata con AI.</figcaption>
+    </figure>
   </section>
 
   <section class="section section-narrow center reveal">
@@ -285,34 +289,6 @@ async function home(el) {
 
   el.querySelector('[data-scroll]').onclick = e => $(e.currentTarget.dataset.scroll).scrollIntoView({ behavior: 'smooth' });
   api('/api/stats').then(s => { const r = $('#ribbon'); if (r) r.innerHTML = metrics(s); }).catch(() => $('#ribbon')?.remove());
-
-  const words = ['Grazie', 'Casa', 'Amico', 'Domani', 'Aiuto', 'Come stai?'];
-  let k = 0;
-  const timer = setInterval(() => {
-    const w = $('#mock-word');
-    if (!w) return;
-    w.classList.add('swap');
-    setTimeout(() => { w.textContent = words[(k = (k + 1) % words.length)]; w.classList.remove('swap'); }, 400);
-  }, 2600);
-  return () => clearInterval(timer);
-}
-
-function deviceMock() {
-  const hand = cls => `<g class="mock-hand ${cls}"><g stroke="#2997ff" stroke-width="2" stroke-linecap="round">
-    <line x1="0" y1="0" x2="-11" y2="-20"/><line x1="0" y1="0" x2="-3" y2="-25"/><line x1="0" y1="0" x2="5" y2="-24"/><line x1="0" y1="0" x2="11" y2="-19"/><line x1="0" y1="0" x2="15" y2="-5"/></g>
-    <g fill="#f5f5f7"><circle r="3.5"/><circle cx="-11" cy="-20" r="2.4"/><circle cx="-3" cy="-25" r="2.4"/><circle cx="5" cy="-24" r="2.4"/><circle cx="11" cy="-19" r="2.4"/><circle cx="15" cy="-5" r="2.4"/></g></g>`;
-  return `<div class="device" aria-hidden="true"><div class="device-screen">
-    <div class="mock-top">${ring(0.3, 22, 3, '#30d158')}<span>3 di 10</span></div>
-    <div class="mock-stage"><span class="mock-chip"><i></i>Due mani visibili</span>
-      <svg viewBox="0 0 200 260" preserveAspectRatio="xMidYMax slice">
-        <ellipse cx="100" cy="92" rx="30" ry="36" fill="#48484a"/>
-        <path d="M24 260c0-70 34-98 76-98s76 28 76 98z" fill="#48484a"/>
-        <g transform="translate(128 214)">${hand('mock-hand-r')}</g>
-        <g transform="translate(70 222) scale(-1 1)">${hand('mock-hand-l')}</g>
-      </svg></div>
-    <div class="mock-card"><small>Segno · come lo fai di solito</small><strong id="mock-word">Grazie</strong></div>
-    <div class="mock-shutter"></div>
-  </div></div>`;
 }
 
 function metrics(s) {
