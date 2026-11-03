@@ -1,0 +1,17 @@
+{
+  "name": "segnalis",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Segnalis — piattaforma per raccogliere un dataset di Lingua dei Segni Italiana (LIS).",
+  "scripts": {
+    "start": "node server.js",
+    "export": "node server.js export",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "1.1.1"
+  }
+}

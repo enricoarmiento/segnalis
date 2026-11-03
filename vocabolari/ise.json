@@ -1,0 +1,77 @@
+{
+  "lang": "ise",
+  "name": "Lingua dei Segni Italiana",
+  "short": "LIS",
+  "categories": [
+    {
+      "id": "alfabeto", "name": "Alfabeto", "type": "lettera", "color": "#0A84FF",
+      "desc": "La dattilologia, lettera per lettera.",
+      "items": ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    },
+    {
+      "id": "numeri", "name": "Numeri", "type": "numero", "color": "#5E5CE6",
+      "desc": "Da zero a mille.",
+      "items": ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","30","50","100","1000"]
+    },
+    {
+      "id": "saluti", "name": "Saluti e cortesia", "type": "segno", "color": "#30D158",
+      "desc": "Le prime parole di ogni incontro.",
+      "items": ["Ciao","Buongiorno","Buonasera","Buonanotte","Arrivederci","Grazie","Prego","Per favore","Scusa","Piacere","Benvenuto","Auguri","Sì","No","Va bene"]
+    },
+    {
+      "id": "persone", "name": "Persone e famiglia", "type": "segno", "color": "#FF9F0A",
+      "desc": "Chi siamo e chi ci sta accanto.",
+      "items": ["Io","Tu","Noi","Mamma","Papà","Fratello","Sorella","Figlio","Figlia","Nonno","Nonna","Marito","Moglie","Amico","Bambino","Famiglia","Persona","Sordo","Udente","Interprete","Insegnante"]
+    },
+    {
+      "id": "emozioni", "name": "Emozioni", "type": "segno", "color": "#FF375F",
+      "desc": "Quello che sentiamo, in un segno.",
+      "items": ["Felice","Triste","Arrabbiato","Paura","Stanco","Sorpreso","Amore","Preoccupato","Calmo","Nervoso","Vergogna","Orgoglioso","Annoiato"]
+    },
+    {
+      "id": "tempo", "name": "Tempo e calendario", "type": "segno", "color": "#64D2FF",
+      "desc": "Giorni, mesi e momenti.",
+      "items": ["Oggi","Ieri","Domani","Adesso","Prima","Dopo","Sempre","Mai","Presto","Tardi","Mattina","Pomeriggio","Sera","Notte","Giorno","Settimana","Mese","Anno","Minuto","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica","Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"]
+    },
+    {
+      "id": "domande", "name": "Domande", "type": "segno", "color": "#BF5AF2",
+      "desc": "Chi, cosa, dove, quando, perché.",
+      "items": ["Chi?","Cosa?","Dove?","Quando?","Perché?","Come?","Quanto?","Quale?"]
+    },
+    {
+      "id": "cibo", "name": "Cibo e bevande", "type": "segno", "color": "#FFD60A",
+      "desc": "A tavola, all'italiana.",
+      "items": ["Acqua","Pane","Pasta","Pizza","Caffè","Latte","Tè","Vino","Birra","Frutta","Mela","Arancia","Verdura","Carne","Pesce","Formaggio","Uovo","Dolce","Gelato","Mangiare","Bere","Fame","Sete","Colazione","Pranzo","Cena","Ristorante"]
+    },
+    {
+      "id": "luoghi", "name": "Luoghi e viaggi", "type": "segno", "color": "#63E6E2",
+      "desc": "Città, mezzi e posti di ogni giorno.",
+      "items": ["Casa","Scuola","Università","Lavoro","Ufficio","Stazione","Aeroporto","Treno","Autobus","Macchina","Negozio","Supermercato","Banca","Posta","Bagno","Chiesa","Piazza","Città","Mare","Montagna","Italia","Roma","Milano","Napoli","Torino","Palermo","Genova","Bologna","Firenze","Bari","Venezia","Cagliari","Trieste"]
+    },
+    {
+      "id": "salute", "name": "Salute ed emergenza", "type": "segno", "color": "#FF453A",
+      "desc": "I segni che possono salvare una vita.",
+      "items": ["Aiuto","Emergenza","Medico","Ospedale","Farmacia","Ambulanza","Polizia","Vigili del fuoco","Pericolo","Dolore","Febbre","Medicina","Malato","Allergia","Sangue","Testa","Pancia","Cuore","Respirare","Incidente","Fuoco"]
+    },
+    {
+      "id": "azioni", "name": "Azioni", "type": "segno", "color": "#AC8E68",
+      "desc": "I verbi di tutti i giorni.",
+      "items": ["Andare","Venire","Vedere","Guardare","Capire","Sapere","Conoscere","Volere","Potere","Dovere","Fare","Lavorare","Studiare","Imparare","Insegnare","Dormire","Svegliarsi","Aspettare","Comprare","Pagare","Aiutare","Pensare","Ricordare","Dimenticare","Segnare","Leggere","Scrivere","Giocare","Correre","Camminare","Abitare","Chiamare","Incontrare","Finire","Cominciare"]
+    },
+    {
+      "id": "colori", "name": "Colori", "type": "segno", "color": "#FF6482",
+      "desc": "Dal rosso al bianco.",
+      "items": ["Rosso","Arancione","Giallo","Verde","Azzurro","Blu","Viola","Rosa","Marrone","Grigio","Nero","Bianco"]
+    },
+    {
+      "id": "conversazione", "name": "Frasi di tutti i giorni", "type": "frase", "color": "#0A84FF",
+      "desc": "Conversazioni vere, segnate in modo naturale.",
+      "items": ["Come ti chiami?","Come stai?","Sto bene, grazie.","Piacere di conoscerti.","Dove abiti?","Che lavoro fai?","Sono sordo.","Conosci la LIS?","Non ho capito, puoi ripetere?","Puoi segnare più lentamente?","Che ore sono?","Oggi fa freddo.","Domani vado al lavoro.","Ieri ho visto un film.","Ho fame, andiamo a mangiare?","Vorrei un caffè, per favore.","Ci vediamo domani.","Buon compleanno!","Ti voglio bene.","Non lo so.","Aspettami qui.","Cosa fai nel fine settimana?"]
+    },
+    {
+      "id": "servizi", "name": "Servizi ed emergenze", "type": "frase", "color": "#FF453A",
+      "desc": "In stazione, dal medico, al negozio.",
+      "items": ["Ho bisogno di un interprete LIS.","Puoi scriverlo, per favore?","Dov'è il bagno?","Quanto costa?","A che ora parte il treno?","Il treno è in ritardo.","Vorrei un biglietto per Roma.","Dove si trova la stazione?","Ho un appuntamento con il medico.","Mi fa male la testa.","Ho un'allergia a questo farmaco.","Chiamate un'ambulanza!","Aiuto, c'è un incendio!","Non trovo la strada.","Posso pagare con la carta?","Il conto, per favore."]
+    }
+  ]
+}

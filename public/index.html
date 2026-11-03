@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Segnalis: registra i tuoi segni e aiuta a costruire il grande dataset aperto della Lingua dei Segni Italiana.">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <title>Segnalis — Ogni segno conta</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#app">Vai al contenuto</a>
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="logo" href="#/" aria-label="Segnalis, home">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="17" r="3"/><path d="M7 9a8 8 0 0 1 8 8M7 3a14 14 0 0 1 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <span>Segnalis</span>
+      </a>
+      <nav class="nav-links" aria-label="Principale">
+        <a href="#/registra" data-nav="registra">Contribuisci</a>
+        <a href="#/valida" data-nav="valida">Valida</a>
+        <a href="#/dataset" data-nav="dataset">Dataset</a>
+        <a href="#/privacy" data-nav="privacy">Privacy</a>
+      </nav>
+      <div class="nav-end">
+        <a class="nav-account" href="#/profilo" data-nav="profilo" hidden>Il mio profilo</a>
+        <a class="btn btn-primary btn-sm nav-cta" href="#/inizia">Inizia</a>
+        <button class="nav-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-note">Segnalis è un progetto aperto per dare alla Lingua dei Segni Italiana il posto che merita nella tecnologia. I video servono solo alla ricerca e all'addestramento di modelli, secondo i consensi che scegli tu.</p>
+      <nav class="footer-links" aria-label="Secondaria">
+        <a href="#/registra">Contribuisci</a>
+        <a href="#/valida">Valida</a>
+        <a href="#/dataset">Dataset e ricercatori</a>
+        <a href="#/privacy">Privacy</a>
+        <a href="#/accedi">Accedi con la tua chiave</a>
+      </nav>
+      <p class="footer-legal">Fatto in Italia. Pensato per il mondo.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="dialog" id="dialog"></dialog>
+</body>
+</html>
