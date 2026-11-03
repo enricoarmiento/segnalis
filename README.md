@@ -1,4 +1,4 @@
-# Segnalis
+# SegnaLis
 
 Piattaforma per raccogliere un dataset video della **Lingua dei Segni Italiana (LIS)**, pensata per essere estesa alle altre lingue dei segni.
 

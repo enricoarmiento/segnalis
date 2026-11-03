@@ -1,5 +1,5 @@
 'use strict';
-// Segnalis — server senza dipendenze: HTTP, SQLite integrato in Node, file video su disco.
+// SegnaLis — server senza dipendenze: HTTP, SQLite integrato in Node, file video su disco.
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -442,7 +442,7 @@ function exportDataset(includePending = false) {
 
 if (require.main === module) {
   if (process.argv[2] === 'export') exportDataset(process.argv.includes('--all'));
-  else server.listen(PORT, () => console.log(`Segnalis in ascolto su http://localhost:${PORT}`));
+  else server.listen(PORT, () => console.log(`SegnaLis in ascolto su http://localhost:${PORT}`));
 }
 
 module.exports = { server, exportDataset, PROMPTS, db };

@@ -1,4 +1,4 @@
-// Segnalis — app a pagina singola, senza framework.
+// SegnaLis — app a pagina singola, senza framework.
 const CONTACT_EMAIL = 'dataset@segnalis.it'; // da sostituire con l'indirizzo reale del progetto
 const KEY = 'segnalis.key';
 const DAILY_GOAL = 10;
@@ -25,6 +25,8 @@ const MIME = window.MediaRecorder ? ['video/webm;codecs=vp9', 'video/webm;codecs
 // Collegamenti tra i 21 punti della mano, come in MediaPipe Hands.
 const CONNECTIONS = [[0, 1], [1, 2], [2, 3], [3, 4], [0, 5], [5, 6], [6, 7], [7, 8], [5, 9], [9, 10], [10, 11], [11, 12], [9, 13], [13, 14], [14, 15], [15, 16], [13, 17], [0, 17], [17, 18], [18, 19], [19, 20]];
 
+// Logo: una mano che segna, con un arco di movimento.
+const LOGO = `<svg viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(-1 .6) rotate(-14 13 14)"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M9.7 10.5V5.2M12.8 10V3.8M15.9 10.4V5M18.9 11.6V7.6" stroke-width="2.7"/><path d="M9.6 16.8 6.3 13.1" stroke-width="3"/></g><path d="M8.3 10.2h12v5.6a6.2 6.2 0 0 1-6.2 6.2h-.7a5.1 5.1 0 0 1-5.1-5.1z" fill="currentColor"/></g><path d="M19.3 3.4a5.6 5.6 0 0 1 2.4 3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
 const I = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const ICONS = {
   alfabeto: I('<path d="M3 19 8 5l5 14M5 14h6"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M20 12.5V18"/>'),
@@ -47,7 +49,6 @@ const ICONS = {
   hand: I('<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4a1.5 1.5 0 0 1 3 0v7M14 11V5.5a1.5 1.5 0 0 1 3 0V13M17 9.5a1.5 1.5 0 0 1 3 0V15a7 7 0 0 1-7 7h-1.5a7 7 0 0 1-5.6-2.8l-2.6-3.6a1.6 1.6 0 0 1 2.4-2.1L8 15.5"/>'),
   lock: I('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8.5 11V7.5a3.5 3.5 0 0 1 7 0V11"/>'),
   mute: I('<path d="M11 5 6 9H3v6h3l5 4zM22 9l-6 6M16 9l6 6"/>'),
-  check: I('<path d="M5 12.5l4.5 4.5L19 7"/>'),
   trash: I('<path d="M4 7h16M10 11v6M14 11v6M5.5 7l1 13h11l1-13M9 7V4h6v3"/>'),
   sun: I('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
   wall: I('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/>'),
@@ -216,19 +217,19 @@ async function home(el) {
   el.innerHTML = `
   <section class="hero">
     <p class="eyebrow">Lingua dei Segni Italiana</p>
-    <h1 class="display">Mani che parlano.<br>Tecnologia che capisce.</h1>
-    <p class="lead">Registra i tuoi segni con la fotocamera. Insieme costruiamo il grande dataset aperto della LIS, per un'intelligenza artificiale che includa davvero tutti.</p>
+    <h1 class="display">Dai una mano.<br>Anzi, due.</h1>
+    <p class="lead">Registra pochi secondi di Lingua dei Segni Italiana con la fotocamera. Così le macchine imparano, finalmente, a capire chi segna.</p>
     <div class="row"><a class="btn btn-primary btn-lg" href="${start}">Inizia a contribuire</a><button class="link" type="button" data-scroll="#come">Scopri come</button></div>
     <div class="device-wrap reveal">${deviceMock()}</div>
   </section>
 
   <section class="section section-narrow center reveal">
-    <p class="statement">Ogni segno conta. <span>Le macchine capiscono decine di lingue parlate. La LIS, riconosciuta dalla Repubblica nel 2021, merita lo stesso. Per insegnarla servono migliaia di mani diverse. Anche le tue.</span></p>
+    <p class="statement">Gli assistenti vocali ti ascoltano. I traduttori ti leggono. Chi segna aspetta ancora. <span>Dal 2021 la Repubblica riconosce la LIS come lingua. Alle macchine manca una cosa sola per capirla: migliaia di esempi, da mani diverse. Anche le tue.</span></p>
   </section>
 
   <section class="section center" id="come">
     <p class="eyebrow">Come funziona</p>
-    <h2 class="headline">Pochi secondi.<br>Un segno che resta.</h2>
+    <h2 class="headline">Più breve<br>di un vocale.</h2>
     <div class="steps reveal">
       <div class="step"><h3>Leggi.</h3><p>Ti mostriamo una parola, una lettera o una frase in italiano.</p></div>
       <div class="step"><h3>Segna.</h3><p>Registri pochi secondi con la fotocamera del telefono o del computer. Nessuna app da installare.</p></div>
@@ -237,15 +238,13 @@ async function home(el) {
   </section>
 
   <section class="band"><div class="section">
-    <div class="center"><p class="eyebrow">Pensato per chi segna</p><h2 class="headline">Tutto quello che serve.<br>Niente di più.</h2></div>
+    <div class="center"><p class="eyebrow">Pensato per chi segna</p><h2 class="headline">Uno studio di registrazione.<br>In tasca.</h2></div>
     <div class="bento reveal">
-      <div class="tile tile-wide"><h3>Vede le tue mani.<br>In tempo reale.</h3><p>MediaPipe Hands riconosce 21 punti per ogni mano direttamente sul tuo dispositivo, e ti avvisa se escono dall'inquadratura. Quei punti entrano nel dataset insieme al video.</p>${handArt()}</div>
-      <div class="tile tile-wide tile-dark"><h3>Anelli da chiudere.</h3><p>Dieci segni, un anello. Una sessione dura meno di un caffè.</p><div class="tile-art center">${ring(0.7, 140, 16, '#ff3b30')}</div></div>
-      <div class="tile"><h3>Dalla A alla Z.</h3><p>La dattilologia completa, lettera per lettera.</p><div class="tile-art alphabet">${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').slice(0, 18).map((l, k) => `<span class="${[2, 8, 11, 17].includes(k) ? 'on' : ''}">${l}</span>`).join('')}</div></div>
-      <div class="tile"><h3>Ogni regione.<br>Ogni accento.</h3><p>La LIS di Palermo non è quella di Torino. Segnala le varianti: le vogliamo tutte.</p><div class="tile-art regions">${['Sicilia', 'Piemonte', 'Lazio', 'Veneto', 'Puglia', 'Sardegna', 'Toscana', 'Campania'].map((r, k) => `<span class="${k % 3 === 0 ? 'on' : ''}">${r}</span>`).join('')}</div></div>
-      <div class="tile"><h3>I segni che contano di più.</h3><p>Un vocabolario dedicato a salute ed emergenze, per servizi davvero accessibili.</p><div class="big" style="color:var(--red)">Aiuto.</div></div>
-      <div class="tile tile-full tile-split"><div><h3>Verificato dalla comunità sorda.</h3><p>Ogni video viene controllato da almeno due persone che segnano da anni. Così il dataset è affidabile, non solo grande.</p></div>
-        <div class="checks" aria-hidden="true"><span>${ICONS.check}</span><span>${ICONS.check}</span></div></div>
+      <div class="tile tile-wide"><h3>Ventuno punti per mano.<br>Calcolati sul tuo telefono.</h3><p>MediaPipe Hands segue ogni dito mentre segni e ti avvisa se una mano esce dall'inquadratura. L'analisi avviene sul dispositivo, senza servizi esterni. I punti entrano nel dataset insieme al video.</p>${handArt()}</div>
+      <div class="tile tile-wide tile-dark"><h3>Dieci segni.<br>Un anello.</h3><p>Una sessione dura meno di un caffè al bancone. E l'anello si chiude.</p><div class="tile-art center">${ring(0.7, 140, 16, '#ff3b30')}</div></div>
+      <div class="tile"><h3>Ventisei lettere.<br>Una mano sola.</h3><p>La dattilologia completa, dalla A alla Z.</p><div class="tile-art alphabet">${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').slice(0, 18).map((l, k) => `<span class="${[2, 8, 11, 17].includes(k) ? 'on' : ''}">${l}</span>`).join('')}</div></div>
+      <div class="tile"><h3>A Palermo si segna diverso.</h3><p>Ed è giusto così. Le varianti regionali sono LIS anche loro: segnalale, le vogliamo tutte.</p><div class="tile-art regions">${['Sicilia', 'Piemonte', 'Lazio', 'Veneto', 'Puglia', 'Sardegna', 'Toscana', 'Campania'].map((r, k) => `<span class="${k % 3 === 0 ? 'on' : ''}">${r}</span>`).join('')}</div></div>
+      <div class="tile"><h3>Il segno che speri di non fare mai.</h3><p>Un vocabolario per pronto soccorso, farmacia e soccorsi. Perché in emergenza ogni malinteso pesa.</p><div class="big" style="color:var(--red)">Aiuto.</div></div>
     </div>
   </div></section>
 
@@ -255,17 +254,17 @@ async function home(el) {
     <p class="lead mt-3">Nella LIS il volto è grammatica: per questo i video lo mostrano. E per questo li proteggiamo come meritano.</p>
     <div class="promises reveal" style="text-align:left">
       <div class="promise">${ICONS.key}<h3>Nessun nome, nessuna email.</h3><p>Ricevi una chiave anonima. Nient'altro.</p></div>
-      <div class="promise">${ICONS.mute}<h3>Solo video. Mai audio.</h3><p>Il microfono resta spento. Sempre.</p></div>
-      <div class="promise">${ICONS.sliders}<h3>Consensi chiari, uno per uno.</h3><p>Scegli tu chi può usare i tuoi video: ricerca, enti esterni, aziende.</p></div>
-      <div class="promise">${ICONS.trash}<h3>Cancelli tutto con un tocco.</h3><p>Video, punti delle mani, profilo. Quando vuoi.</p></div>
+      <div class="promise">${ICONS.mute}<h3>Non serve sentirti.</h3><p>Ci basta vederti. Il microfono resta spento, sempre.</p></div>
+      <div class="promise">${ICONS.sliders}<h3>Decidi tu chi guarda.</h3><p>Ricerca, università, aziende: un consenso separato per ciascuno.</p></div>
+      <div class="promise">${ICONS.trash}<h3>Un tocco. E non resta nulla.</h3><p>Video, punti delle mani, profilo: cancelli tutto quando vuoi.</p></div>
     </div>
     <p class="mt-4"><a class="link" href="#/privacy">Leggi l'informativa</a></p>
   </div></section>
 
   <section class="section center">
     <p class="eyebrow">Fatto in Italia. Pensato per il mondo.</p>
-    <h2 class="headline">Partiamo dalla LIS.<br>Non ci fermiamo qui.</h2>
-    <p class="lead mt-3">Lo stesso metodo funziona per ogni lingua dei segni. Quando il dataset italiano sarà solido, apriremo alle altre comunità.</p>
+    <h2 class="headline">Oggi la LIS.<br>Domani le altre trecento.</h2>
+    <p class="lead mt-3">Nel mondo si usano più di 300 lingue dei segni. Il metodo è lo stesso per tutte: quando il dataset italiano sarà solido, apriremo alle altre comunità.</p>
     <div class="langs reveal">
       <div class="lang on"><b>LIS</b><span>Italia · Attiva</span></div>
       ${[['ASL', 'Stati Uniti'], ['BSL', 'Regno Unito'], ['LSF', 'Francia'], ['DGS', 'Germania'], ['LSE', 'Spagna']].map(([l, c]) => `<div class="lang"><b>${l}</b><span>${c} · Presto</span></div>`).join('')}
@@ -274,14 +273,14 @@ async function home(el) {
 
   <section class="band"><div class="section center">
     <p class="eyebrow">In diretta</p>
-    <h2 class="headline">Il dataset, oggi.</h2>
+    <h2 class="headline">Cresce mentre leggi.</h2>
     <div class="ribbon" id="ribbon"><div class="spinner"></div></div>
   </div></section>
 
   <section class="section center">
-    <h2 class="display">Il tuo primo segno<br>ti aspetta.</h2>
+    <h2 class="display">Le mani<br>le hai già.</h2>
     <div class="row mt-4"><a class="btn btn-primary btn-lg" href="${start}">Inizia ora</a></div>
-    <p class="tiny mt-2">Servono una fotocamera e due minuti.</p>
+    <p class="tiny mt-2">Per il resto bastano una fotocamera e due minuti.</p>
   </section>`;
 
   el.querySelector('[data-scroll]').onclick = e => $(e.currentTarget.dataset.scroll).scrollIntoView({ behavior: 'smooth' });
@@ -366,7 +365,7 @@ async function onboarding(el) {
   const show = html => { el.innerHTML = `<div class="setup">${html}</div>`; window.scrollTo(0, 0); };
 
   function welcome() {
-    show(`${dots(0)}<div class="setup-head"><div class="setup-icon">${ICONS.hand}</div><h1 class="headline">Ti diamo il benvenuto.</h1>
+    show(`${dots(0)}<div class="setup-head"><div class="setup-icon">${LOGO}</div><h1 class="headline">Ti diamo il benvenuto.</h1>
       <p class="lead">Ci vogliono due minuti per iniziare. Poi ogni segno richiede pochi secondi.</p></div>
       <div class="features">
         <div class="feature">${ICONS.framing}<div><h3>Ti serve solo una fotocamera.</h3><p>Quella del telefono o del computer. Funziona nel browser.</p></div></div>
@@ -575,7 +574,7 @@ async function studio(el, cat = 'mix') {
   // Fotocamera
   async function startCamera() {
     msg.hidden = true;
-    if (!navigator.mediaDevices?.getUserMedia) return showMsg('Serve una connessione sicura.', 'Apri Segnalis da un indirizzo https:// per usare la fotocamera.');
+    if (!navigator.mediaDevices?.getUserMedia) return showMsg('Serve una connessione sicura.', 'Apri SegnaLis da un indirizzo https:// per usare la fotocamera.');
     if (!MIME) return showMsg('Browser non supportato.', 'Aggiorna il browser oppure usa una versione recente di Safari, Chrome o Firefox.');
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } } });
@@ -834,13 +833,13 @@ async function studio(el, cat = 'mix') {
 // ——— Validazione ———
 async function review(el) {
   if (!me.canReview) {
-    el.innerHTML = `<div class="page center"><h1 class="headline">Valida.</h1>
+    el.innerHTML = `<div class="page center"><h1 class="headline">Serve il tuo occhio.</h1>
       <p class="lead mt-2">La validazione è riservata a persone sorde, CODA, interpreti e a chi segna da almeno un anno. Così il dataset resta affidabile.</p>
       <p class="muted mt-3">Se il tuo profilo è cambiato, aggiornalo.</p><div class="row mt-3"><a class="btn btn-primary" href="#/profilo">Aggiorna il profilo</a><a class="btn btn-secondary" href="#/registra">Registra segni</a></div></div>`;
     return;
   }
   el.innerHTML = `<div class="page"><div class="review-wrap">
-    <div class="page-head center"><h1 class="headline">Valida.</h1><p class="lead">Guarda il video e dicci se il segno corrisponde. Ogni video ha bisogno di due conferme.</p></div>
+    <div class="page-head center"><h1 class="headline">Serve il tuo occhio.</h1><p class="lead">Guarda il video e dicci se il segno corrisponde. Ogni video ha bisogno di due conferme.</p></div>
     <div id="rv" aria-live="polite"></div><p class="center tiny mt-3" id="count"></p></div></div>`;
   const rv = $('#rv', el);
   const skipped = [];
@@ -986,7 +985,7 @@ async function dataset(el) {
   el.innerHTML = `
   <section class="section center">
     <p class="eyebrow">Dataset</p>
-    <h1 class="display">Costruito da chi segna.</h1>
+    <h1 class="display">Fatto a mano.<br>Letteralmente.</h1>
     <p class="lead mt-3">Video in LIS verificati dalla comunità, con i punti delle mani fotogramma per fotogramma. Pensato per la ricerca, nel rispetto di ogni persona che lo ha reso possibile.</p>
     <div class="ribbon">${metrics(s)}</div>
   </section>
@@ -1015,7 +1014,7 @@ async function dataset(el) {
     </tbody></table></div>
     <div class="card card-pad mt-4"><h3 class="title">Fai ricerca?</h3>
       <p class="muted mt-1">L'accesso è riservato a università ed enti di ricerca, con un accordo che rispetta i consensi di ogni persona.</p>
-      <a class="btn btn-primary mt-3" href="mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Richiesta di accesso al dataset Segnalis')}">Richiedi l'accesso</a></div>
+      <a class="btn btn-primary mt-3" href="mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Richiesta di accesso al dataset SegnaLis')}">Richiedi l'accesso</a></div>
   </section>`;
 }
 
@@ -1059,7 +1058,7 @@ $('.nav-menu').onclick = () => {
 };
 (async function boot() {
   try { catalog = await api('/api/catalog'); }
-  catch { app.innerHTML = '<div class="page center"><h1 class="title">Segnalis non è raggiungibile.</h1><p class="lead mt-2">Controlla la connessione e ricarica la pagina.</p></div>'; return; }
+  catch { app.innerHTML = '<div class="page center"><h1 class="title">SegnaLis non è raggiungibile.</h1><p class="lead mt-2">Controlla la connessione e ricarica la pagina.</p></div>'; return; }
   if (store.get(KEY)) me = await api('/api/me').catch(() => null);
   addEventListener('hashchange', route);
   route();
