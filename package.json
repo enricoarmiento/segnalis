@@ -2,6 +2,7 @@
   "name": "segnalis",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Segnalis — piattaforma per raccogliere un dataset di Lingua dei Segni Italiana (LIS).",
   "scripts": {
     "start": "node server.js",

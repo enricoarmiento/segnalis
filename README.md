@@ -47,3 +47,7 @@ Crea `vocabolari/<codice-iso-639-3>.json` con la stessa struttura di `ise.json`.
 - Sostituire `CONTACT_EMAIL` in `public/app.js`.
 - Aggiungere un limite di richieste (rate limiting) e un backup di `data/`.
 - Far rivedere il vocabolario da persone sorde e interpreti LIS.
+
+## Licenza
+
+Codice rilasciato con licenza [MIT](LICENSE). Il modello `public/models/hand_landmarker.task` e la libreria `@mediapipe/tasks-vision` sono di Google, con licenza Apache 2.0. I video raccolti non sono coperti da questa licenza: valgono i consensi scelti da ogni persona.
