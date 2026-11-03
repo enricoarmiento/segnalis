@@ -222,8 +222,8 @@ async function home(el) {
     <div class="row"><a class="btn btn-primary btn-lg" href="${start}">Inizia a contribuire</a><button class="link" type="button" data-scroll="#come">Scopri come</button></div>
     <figure class="hero-media reveal">
       <img src="/img/hero-1600.jpg" srcset="/img/hero-1000.jpg 1000w, /img/hero-1600.jpg 1600w, /img/hero-2400.jpg 2400w" sizes="(max-width: 1148px) 100vw, 1100px"
-        width="1600" height="893" fetchpriority="high" alt="Una ragazza segna in LIS davanti a un portatile, in una stanza illuminata dal sole. Dalla fotocamera partono sottili fili di luce che si posano sulle articolazioni delle sue dita; sullo schermo, il suo video e la parola «Grazie».">
-      <figcaption class="tiny">Immagine illustrativa generata con AI.</figcaption>
+        width="1600" height="893" fetchpriority="high" alt="Una ragazza, davanti a un portatile in una stanza illuminata dal sole, forma con la mano destra la lettera L dell'alfabeto manuale LIS. Dalla fotocamera partono sottili fili di luce che si posano sulle articolazioni delle sue dita; sullo schermo, il suo video e la lettera L.">
+      <figcaption class="tiny">La lettera L della dattilologia LIS. Immagine illustrativa generata con AI.</figcaption>
     </figure>
   </section>
 
