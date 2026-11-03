@@ -218,7 +218,7 @@ async function home(el) {
   <section class="hero">
     <p class="eyebrow">Lingua dei Segni Italiana</p>
     <h1 class="display">Dai una mano.<br>Anzi, due.</h1>
-    <p class="lead">Aiutiamo l'AI a capire la LIS, aiutandola con i nostri esempi. Registra anche pochi secondi di Lingua dei Segni Italiana con la fotocamera e contribuisci al dataset.</p>
+    <p class="lead">Insegniamo all'AI a capire la LIS, con i nostri esempi. Bastano pochi secondi di Lingua dei Segni Italiana davanti alla fotocamera per contribuire al dataset.</p>
     <div class="row"><a class="btn btn-primary btn-lg" href="${start}">Inizia a contribuire</a><button class="link" type="button" data-scroll="#come">Scopri come</button></div>
     <div class="device-wrap reveal">${deviceMock()}</div>
   </section>
