@@ -22,7 +22,8 @@ In locale non serve configurare nulla: il database è [PGlite](https://pglite.de
 | `BLOB_READ_WRITE_TOKEN` | Store Vercel Blob **privato** `segnalis-video` (Francoforte) collegato al progetto | Video e punti delle mani |
 | `DATABASE_URL` | Integrazione Neon dal Marketplace di Vercel, regione Francoforte | Profili, consensi, registrazioni, revisioni |
 
-- `vercel.json` fissa le funzioni a Francoforte (`fra1`), copia MediaPipe in `public/vendor` durante la build e applica gli header di sicurezza anche ai file statici.
+- `vercel.json` fissa le funzioni a Francoforte (`fra1`) e applica gli header di sicurezza anche ai file statici.
+- MediaPipe è copiato in `public/vendor/mediapipe` (solo la variante WASM con SIMD, supportata dai browser moderni). Dopo un aggiornamento di `@mediapipe/tasks-vision` esegui `npm run vendor`.
 - Senza queste variabili, su Vercel le API rispondono 503 invece di scrivere su un disco temporaneo.
 - I video passano dalla funzione, che accetta al massimo 4,5 MB: il browser registra a 1,5 Mbps (una frase di 15 s pesa circa 3 MB) e scarta i video troppo pesanti.
 - Per esportare il dataset dal tuo computer: `vercel env pull .env.local`, poi `node --env-file=.env.local server.js export`.

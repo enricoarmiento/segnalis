@@ -9,7 +9,6 @@ const { pipeline } = require('node:stream/promises');
 
 const ROOT = __dirname;
 const PUBLIC = path.join(ROOT, 'public');
-const MEDIAPIPE = path.join(ROOT, 'node_modules', '@mediapipe', 'tasks-vision');
 const DATA = path.resolve(process.env.DATA_DIR || path.join(ROOT, 'data'));
 const VIDEOS = path.join(DATA, 'videos');
 const PORT = Number(process.env.PORT || 3000);
@@ -423,15 +422,15 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=
   '.svg': 'image/svg+xml', '.json': 'application/json', '.wasm': 'application/wasm', '.task': 'application/octet-stream', '.png': 'image/png', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json' };
 
 function serveStatic(req, res, pathname) {
-  let base = PUBLIC, rel = decodeURIComponent(pathname);
-  if (rel.startsWith('/vendor/mediapipe/') && !fs.existsSync(path.join(PUBLIC, rel))) { base = MEDIAPIPE; rel = rel.slice('/vendor/mediapipe'.length); }
+  const base = PUBLIC;
+  let rel = decodeURIComponent(pathname);
   if (rel === '/') rel = '/index.html';
   const file = path.join(base, path.normalize(rel));
   if (!file.startsWith(base + path.sep)) return send(res, 403, { error: 'Vietato.' });
   fs.stat(file, (err, st) => {
     if (err || !st.isFile()) return send(res, 404, { error: 'Non trovato.' });
     res.writeHead(200, { ...SECURITY_HEADERS, 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Content-Length': st.size,
-      'Cache-Control': base === MEDIAPIPE || file.endsWith('.task') ? 'public, max-age=604800' : 'no-cache' });
+      'Cache-Control': rel.startsWith('/vendor/') || file.endsWith('.task') ? 'public, max-age=604800' : 'no-cache' });
     if (req.method === 'HEAD') return res.end();
     fs.createReadStream(file).pipe(res);
   });
@@ -487,9 +486,10 @@ async function exportDataset(includePending = false) {
 
 if (require.main === module && process.argv[2] === 'export') {
   exportDataset(process.argv.includes('--all')).then(() => process.exit(0), e => { console.error(e); process.exit(1); });
-} else if (require.main === module || ON_VERCEL) {
-  // Su Vercel il preset Node rileva il server che si mette in ascolto all'avvio del modulo.
+} else if (require.main === module) {
   server.listen(PORT, () => console.log(`SegnaLis in ascolto su http://localhost:${PORT}`));
 }
 
-module.exports = { server, exportDataset, PROMPTS, database };
+// Il preset Node di Vercel richiede il server come export di default.
+module.exports = server;
+module.exports.exportDataset = exportDataset;

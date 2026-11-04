@@ -7,7 +7,8 @@ const os = require('node:os');
 const path = require('node:path');
 
 process.env.DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'segnalis-test-'));
-const { server, exportDataset } = require('../server.js');
+const server = require('../server.js');
+const { exportDataset } = server;
 
 let base;
 test.before(() => new Promise(r => server.listen(0, () => { base = `http://localhost:${server.address().port}`; r(); })));
