@@ -449,7 +449,9 @@ const server = http.createServer(async (req, res) => {
     }
     send(res, 404, { error: 'Non trovato.' });
   } catch (e) {
-    if (!(e instanceof HttpError)) console.error(e);
+    // Su Vercel Hobby i log delle richieste non sono consultabili: registriamo noi ogni errore delle API.
+    if (e instanceof HttpError) console.warn(`${req.method} ${url.pathname} → ${e.status} ${e.message}`);
+    else console.error(`${req.method} ${url.pathname} → 500`, e);
     if (!res.headersSent) send(res, e.status || 500, { error: e instanceof HttpError ? e.message : 'Errore del server.' });
     else res.destroy();
   }
