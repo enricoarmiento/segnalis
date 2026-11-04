@@ -5,6 +5,7 @@
   "license": "MIT",
   "description": "SegnaLis — piattaforma per raccogliere un dataset di Lingua dei Segni Italiana (LIS).",
   "scripts": {
+    "build": "mkdir -p public/vendor/mediapipe && cp -R node_modules/@mediapipe/tasks-vision/vision_bundle.mjs node_modules/@mediapipe/tasks-vision/wasm public/vendor/mediapipe/",
     "start": "node server.js",
     "export": "node server.js export",
     "test": "node --test"
@@ -13,6 +14,9 @@
     "node": ">=22.13"
   },
   "dependencies": {
-    "@mediapipe/tasks-vision": "1.1.1"
+    "@electric-sql/pglite": "0.5.10",
+    "@mediapipe/tasks-vision": "1.1.1",
+    "@neondatabase/serverless": "1.2.0",
+    "@vercel/blob": "2.8.2"
   }
 }

@@ -645,7 +645,7 @@ async function studio(el, cat = 'mix') {
 
   function startRecording() {
     chunks = [];
-    try { recorder = new MediaRecorder(stream, { mimeType: MIME, videoBitsPerSecond: 2_500_000 }); }
+    try { recorder = new MediaRecorder(stream, { mimeType: MIME, videoBitsPerSecond: 1_500_000 }); }
     catch { recorder = new MediaRecorder(stream); }
     recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
     recorder.onstop = onStop;
@@ -680,6 +680,7 @@ async function studio(el, cat = 'mix') {
     take = track; track = null;
     blob = new Blob(chunks, { type: recorder.mimeType || MIME });
     if (dur < 700) { toast('Troppo breve. Riprova con calma.'); return setPhase('idle'); }
+    if (blob.size > catalog.maxVideoBytes) { toast('Video troppo pesante. Riprova un po\' più breve.'); return setPhase('idle'); }
     const handsRatio = take.total ? take.seen / take.total : null;
     warn = hands && take.total > 5 && handsRatio < 0.5 ? 'Le mani si vedono poco. Puoi rifarlo, se vuoi.'
       : brightness != null && brightness < 50 ? 'Il video è un po’ buio. Puoi rifarlo, se vuoi.' : '';
@@ -1018,6 +1019,8 @@ async function privacy(el) {
       <li>Università ed enti di ricerca, solo se hai attivato «Condivisione con la ricerca», con accordi che vietano altri usi.</li>
       <li>Aziende che sviluppano prodotti accessibili, solo se hai attivato «Prodotti accessibili».</li>
     </ul>
+    <h2>Dove sono conservati</h2>
+    <p>In Unione Europea, a Francoforte: i video e i punti delle mani in un archivio privato (Vercel Blob), accessibile solo tramite il nostro server; il profilo e i consensi in un database Postgres (Neon).</p>
     <h2>Per quanto tempo</h2>
     <p>Finché non revochi il consenso o fino alla chiusura del progetto. Se elimini i tuoi dati, li cancelliamo subito dai nostri sistemi e li escludiamo dalle versioni successive del dataset.</p>
     <h2>I tuoi diritti</h2>

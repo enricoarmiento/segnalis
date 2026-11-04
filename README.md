@@ -13,7 +13,19 @@ npm test           # flusso completo dell'API su un database temporaneo
 npm run export     # esporta i video validati in data/export/<data>/ (aggiungi -- --all per includere quelli in verifica)
 ```
 
-Serve Node 22.13 o successivo (usa `node:sqlite` integrato). Nessun'altra dipendenza oltre a `@mediapipe/tasks-vision`, servita in locale insieme al modello `public/models/hand_landmarker.task`: il browser di chi registra non contatta servizi esterni.
+In locale non serve configurare nulla: il database è [PGlite](https://pglite.dev) (Postgres dentro Node, salvato in `data/pg`) e i video finiscono in `data/videos`. MediaPipe (`@mediapipe/tasks-vision`) e il modello `public/models/hand_landmarker.task` sono serviti dal sito stesso: il browser di chi registra non contatta servizi esterni.
+
+## Deploy su Vercel
+
+| Variabile | Da dove arriva | Uso |
+|---|---|---|
+| `BLOB_READ_WRITE_TOKEN` | Store Vercel Blob **privato** `segnalis-video` (Francoforte) collegato al progetto | Video e punti delle mani |
+| `DATABASE_URL` | Integrazione Neon dal Marketplace di Vercel, regione Francoforte | Profili, consensi, registrazioni, revisioni |
+
+- `vercel.json` fissa le funzioni a Francoforte (`fra1`), copia MediaPipe in `public/vendor` durante la build e applica gli header di sicurezza anche ai file statici.
+- Senza queste variabili, su Vercel le API rispondono 503 invece di scrivere su un disco temporaneo.
+- I video passano dalla funzione, che accetta al massimo 4,5 MB: il browser registra a 1,5 Mbps (una frase di 15 s pesa circa 3 MB) e scarta i video troppo pesanti.
+- Per esportare il dataset dal tuo computer: `vercel env pull .env.local`, poi `node --env-file=.env.local server.js export`.
 
 La fotocamera funziona solo su `localhost` o in **HTTPS**. Per provarla da telefono usa un tunnel HTTPS o metti il server dietro un reverse proxy con certificato.
 
@@ -26,7 +38,7 @@ Variabili: `PORT` (default 3000), `DATA_DIR` (default `./data`).
 | `server.js` | API, database SQLite, file statici, export del dataset |
 | `vocabolari/ise.json` | Vocabolario LIS (codice ISO 639-3 `ise`): categorie, tipo e voci |
 | `public/` | App a pagina singola: home, onboarding, studio, validazione, profilo, dataset, privacy |
-| `data/` | Creata all'avvio: `segnalis.db` e `videos/` (video + `*.landmarks.json`) |
+| `data/` | Solo in locale: database PGlite (`pg/`) e `videos/` (video + `*.landmarks.json`) |
 
 ## Come funziona
 
@@ -45,7 +57,7 @@ Crea `vocabolari/<codice-iso-639-3>.json` con la stessa struttura di `ise.json`.
 
 - Completare l'informativa (`#/privacy`) con titolare e DPO, e far fare una DPIA: i video del volto sono dati biometrici.
 - Sostituire `CONTACT_EMAIL` in `public/app.js`.
-- Aggiungere un limite di richieste (rate limiting) e un backup di `data/`.
+- Aggiungere un limite di richieste (rate limiting) e attivare i backup di Neon.
 - Far rivedere il vocabolario da persone sorde e interpreti LIS.
 
 ## Licenza

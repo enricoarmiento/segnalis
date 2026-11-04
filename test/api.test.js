@@ -43,6 +43,9 @@ test('flusso completo', async () => {
   assert.equal((await call('/api/recordings', { key: A, method: 'POST', body: Buffer.from('ciao'.repeat(400)),
     headers: { 'Content-Type': 'video/webm', 'X-Segnalis-Meta': meta({ prompt_id: pid }) } })).status, 415, 'controllo del formato');
 
+  assert.equal((await call('/api/recordings', { key: A, method: 'POST', body: Buffer.concat([fakeWebm(), Buffer.alloc(4_500_000)]),
+    headers: { 'Content-Type': 'video/webm', 'X-Segnalis-Meta': meta({ prompt_id: pid }) } })).status, 413, 'limite di 4,4 MB delle funzioni Vercel');
+
   const up = await call('/api/recordings', { key: A, method: 'POST', body: fakeWebm(),
     headers: { 'Content-Type': 'video/webm;codecs=vp9', 'X-Segnalis-Meta': meta({ prompt_id: pid, variant: true, note: 'si usa a Catania', duration_ms: 1800, quality: { hands_ratio: 0.9 } }) } });
   assert.equal(up.status, 201);
@@ -69,7 +72,7 @@ test('flusso completo', async () => {
   assert.equal(st.recordings, 1);
   assert.equal(st.regions.find(r => r.id === 'sicilia').n, null, 'gruppi sotto 5 persone nascosti');
 
-  const exp = exportDataset();
+  const exp = await exportDataset();
   const rows = fs.readFileSync(path.join(exp.dir, 'manifest.jsonl'), 'utf8').trim().split('\n').map(JSON.parse);
   assert.equal(rows.length, 1);
   assert.equal(rows[0].votes.ok, 2);
